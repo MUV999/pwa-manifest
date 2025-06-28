@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>PWA Config Generator</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; }
+    input, textarea { width: 100%; margin-bottom: 10px; padding: 8px; }
+    label { font-weight: bold; }
+    button { padding: 10px 20px; font-size: 16px; background: #007aff; color: white; border: none; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>PWA config.json 생성기</h1>
+
+  <label>사이트 이름 (SITE_NAME)</label>
+  <input id="site_name" value="MUV 쇼핑몰" />
+
+  <label>짧은 이름 (SHORT_NAME)</label>
+  <input id="short_name" value="MUV" />
+
+  <label>아이콘 이미지 URL (ICON_URL)</label>
+  <input id="icon_url" value="https://cdn.imweb.me/upload/xxxx/logo.png" />
+
+  <label>메인 컬러 (THEME_COLOR)</label>
+  <input id="theme_color" value="#000000" />
+
+  <label>배너 제목 (BANNER_TITLE)</label>
+  <input id="banner_title" value="앱처럼 설치하고 사용해보세요!" />
+
+  <label>배너 설명 (BANNER_DESC)</label>
+  <textarea id="banner_desc">홈 화면에 추가 버튼을 눌러보세요.</textarea>
+
+  <label>배너 배경색 (BANNER_BG)</label>
+  <input id="banner_bg" value="#fffbe6" />
+
+  <label>배너 텍스트 색상 (BANNER_TEXT)</label>
+  <input id="banner_text" value="#d48806" />
+
+  <button onclick="generate()">config.json 다운로드</button>
+
+  <script>
+    function generate() {
+      const config = {
+        SITE_NAME: document.getElementById('site_name').value,
+        SHORT_NAME: document.getElementById('short_name').value,
+        ICON_URL: document.getElementById('icon_url').value,
+        THEME_COLOR: document.getElementById('theme_color').value,
+        BANNER_TITLE: document.getElementById('banner_title').value,
+        BANNER_DESC: document.getElementById('banner_desc').value,
+        BANNER_BG: document.getElementById('banner_bg').value,
+        BANNER_TEXT: document.getElementById('banner_text').value
+      };
+
+      const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'pwa-config.json';
+      link.click();
+    }
+  </script>
+</body>
+</html>
